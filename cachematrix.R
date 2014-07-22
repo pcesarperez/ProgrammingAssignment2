@@ -87,8 +87,8 @@ cacheSolve <- function (x, ...) {
     # Otherwise, we need to calculate the inverse matrix.
     # Then, we store the inverse into the structure, for future use.
     # The inverse is finally returned.
-    data <- x$get ( )
-    inverse <- solve (data, ...)
+    mat <- x$get ( )
+    inverse <- solve (mat, ...)
     x$setInverse (inverse)
 
     return (inverse)
