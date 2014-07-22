@@ -2,11 +2,11 @@
 ##
 ## These set of functions calculate the inverse of a matrix.
 ## The inverse of a matrix is a time-consuming process, so we create a
-## structure to cache the inverse and recover it beyond the firs calculation.
+## structure to cache the inverse and recover it beyond the first calculation.
 
 
 ## Creates a structure wich represents a cacheable matrix.
-## This structure has the ability to compute its own inverse.
+## This structure has the ability to store the inverse of the inner matrix.
 ## The inverse of the matrix is cached the first time it's calculated.
 ## We are assuming that the matrix is always invertible.
 ##
@@ -60,7 +60,7 @@ makeCacheMatrix <- function (x = matrix ( )) {
     }
 
 
-    ## The structure returns a list with the four named functions within.
+    ## The structure returns a list with the four internal functions within.
     return (list (set=set,
                   get=get,
                   setInverse=setInverse,
