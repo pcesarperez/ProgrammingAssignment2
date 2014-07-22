@@ -23,9 +23,9 @@ makeCacheMatrix <- function (x = matrix ( )) {
 
     ## Setter function.
     ## This function assigns a matrix to the structure.
-    ## It uses lexical scoping to initialize the inner matrix, "x".
+    ## It uses lexical scoping to initialize the inner matrices, "x" and "i".
     ##
-    ## @param y Matrix object.
+    ## @param y Invertible matrix object.
     set <- function (y) {
         x <<- y
         i <<- NULL
@@ -33,7 +33,7 @@ makeCacheMatrix <- function (x = matrix ( )) {
 
 
     ## Getter function.
-    ## This function retrieves the actual matrix, stored in the object "x".
+    ## This function retrieves the inner matrix, stored in the object "x".
     ##
     ## @return The actual matrix held into the structure.
     get <- function ( ) {
@@ -75,4 +75,21 @@ makeCacheMatrix <- function (x = matrix ( )) {
 ## @param x Structure that represents a cacheable matrix.
 ## @return A matrix that is the inverse of the given matrix.
 cacheSolve <- function (x, ...) {
+    # First, we try to get the cached inverse of the given cacheable matrix.
+    i <- x$getInverse ( )
+
+    # If there is inverse matrix, we just return it (no real calculation done).
+    if (!is.null (i)) {
+        message ("Getting cached inverse matrix!")
+        return (i)
+    }
+
+    # Otherwise, we need to calculate the inverse matrix.
+    # Then, we store the inverse into the structure, for future use.
+    # The inverse is finally returned.
+    data <- x$get ( )
+    inverse <- solve (data, ...)
+    x$setInverse (inverse)
+
+    return (inverse)
 }
